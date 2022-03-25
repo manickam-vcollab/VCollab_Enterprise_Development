@@ -1,0 +1,6 @@
+https://www.pluralsight.com/guides/re-render-react-component-on-window-resize
+https://stackoverflow.com/questions/37775020/trigger-resize-event-on-component
+
+
+TypeScript + React
+https://fettblog.eu/guides/

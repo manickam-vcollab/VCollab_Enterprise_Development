@@ -1,0 +1,122 @@
+{
+  "name": "vcollab-enterprise-gui",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fseehawer/react-circular-slider": "^2.3.5",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@material-ui/styles": "^4.11.3",
+    "@reduxjs/toolkit": "^1.5.0",
+    "@remirror/pm": "^1.0.9",
+    "@remirror/react": "^1.0.19",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^26.0.21",
+    "@types/node": "^12.20.6",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@types/react-redux": "^7.1.16",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/react-virtualized-auto-sizer": "^1.0.1",
+    "autosuggest-highlight": "^3.1.1",
+    "clsx": "^1.1.1",
+    "connected-react-router": "^6.9.1",
+    "fuse.js": "^6.4.6",
+    "gl-matrix": "^3.3.0",
+    "history": "^4.10.1",
+    "moment": "^2.29.1",
+    "ramda": "^0.27.1",
+    "rc-slider": "^9.7.2",
+    "react": "^17.0.2",
+    "react-color": "^2.19.3",
+    "react-dom": "^17.0.2",
+    "react-dropzone": "^11.3.4",
+    "react-fullscreen-crossbrowser": "^1.1.0",
+    "react-id-generator": "^3.0.1",
+    "react-numeric-input": "^2.2.3",
+    "react-redux": "^7.2.3",
+    "react-resize-detector": "^6.6.4",
+    "react-resize-panel": "^0.3.5",
+    "react-rnd": "^10.3.5",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-slick": "^0.28.1",
+    "react-switch": "^6.0.0",
+    "react-toggle": "^4.1.2",
+    "react-virtualized-auto-sizer": "^1.0.5",
+    "react-xarrows": "^2.0.2",
+    "redux-toolkit": "^1.1.2",
+    "remirror": "^1.0.57",
+    "rsuite": "^4.9.3",
+    "rsuite-table": "^3.14.3",
+    "slate": "^0.72.3",
+    "slate-history": "^0.66.0",
+    "slate-react": "^0.72.6",
+    "slick-carousel": "^1.8.1",
+    "squirrelly": "^8.0.8",
+    "typescript": "^4.2.3",
+    "web-vitals": "^1.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && node buildScripts/deployDemo.js",
+    "testScript": " node buildScripts/deployDemo.js",
+    "del_bak": "del /s /q *.bak",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-interactions": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/node-logger": "^6.4.19",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.4.19",
+    "@storybook/testing-library": "^0.0.9",
+    "@types/autosuggest-highlight": "^3.1.1",
+    "@types/ramda": "^0.27.44",
+    "@types/react-color": "^3.0.5",
+    "@types/react-router": "^5.1.15",
+    "@types/react-slick": "^0.23.6",
+    "@types/react-toggle": "^4.0.2",
+    "ncp": "^2.0.0",
+    "react-styleguidist": "^11.2.0",
+    "serve": "^13.0.2"
+  }
+}

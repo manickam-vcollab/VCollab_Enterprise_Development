@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test</title>
+  <style>
+    #left {
+        float: left;
+        width: 20%;
+        height: 100vh;
+        overflow: scroll
+    }
+
+    #right {
+        width: 100%;
+        height: 100vh;
+    }
+  </style>
+  <script>
+  function onLoad(){
+  let serverURL = "http://ec2-54-88-72-27.compute-1.amazonaws.com:8080/api/1.0/"
+  let jsonurl = serverURL + "samplesnew"
+	fetch(jsonurl)
+	.then((response) => response.json())
+	.then((data) => {
+		let domDiv = document.getElementById("left");
+		if(domDiv && data)
+		{		
+			data.forEach( item => {
+				var para = document.createElement("p");
+				var aLink = document.createElement('a');
+        aLink.href = item.url; 
+				//aLink.href = item.url.replace("viewer.html?","viewer.html/?");
+        console.log(aLink.href);
+				aLink.target = "renderer";
+                var link = document.createTextNode(item.name); 
+                aLink.appendChild(link);  
+				
+				para.appendChild(aLink);				
+				domDiv.appendChild(para);		
+			});		
+		}
+	 });
+  }
+  window.onload = onLoad;
+  </script>
+</head>
+
+<body>
+  <div id="left"></div>
+  <div id="right">
+    <iframe scrolling = "no" name="renderer" id="renderer" src="http://ec2-54-91-111-61.compute-1.amazonaws.com:8080/api/1.0/dummy" frameborder="0"" width="70%" height="650px" allowfullscreen> </iframe>
+  </div>
+</body>
+</html>
