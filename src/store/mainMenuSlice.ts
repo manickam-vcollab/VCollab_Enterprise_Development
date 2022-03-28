@@ -273,7 +273,7 @@ const initialState: MainMenu ={
                 {
                     id: 'Geometry11',
                     name: "Assembly Tree",
-                    type:MainMenuItems.GEOMETRY_ASSEMBLY_TREE,
+                    type: MainMenuItems.GEOMETRY_ASSEMBLY_TREE,
                     path: Routes.GEOMETRY_ASSEMBLY_TREE,
                     disabled: false,
                     children: [],
@@ -320,10 +320,10 @@ const initialState: MainMenu ={
                     id: 'Geometry16',
                     name: "Geometry Transform",
                     type:MainMenuItems.GEOMETRY_TRANSFORMATION,
-                    path: Routes.GEOMETRY,
+                    path: Routes.GEOMETRY_TRANSFORM,
                     children: [],
                     expanded: false,
-                    disabled: true,
+                    disabled: false,
                   }
             ]
         },
@@ -631,7 +631,7 @@ const initialState: MainMenu ={
         // leftbar bottom options
         {
             id:'12',
-            name: 'More',
+            name: 'All Menus',
             type:MainMenuItems.MORE,
             path:Routes.MORE,
             disabled: false,
@@ -709,6 +709,9 @@ export const mainMenuSlice = createSlice({
             if(idx !== -1)
             state.defaultOptions.splice(idx,1);
         },
+        setDefaultTabs: (state, action:PayloadAction<{tabIds: string[]}>) => { 
+            state.defaultOptions = [...action.payload.tabIds]
+        },
         setActiveTab: (state, action: PayloadAction<{menuItem: MainMenuItem | null}>) => {
             const {menuItem} = action.payload;
             if(menuItem &&
@@ -760,7 +763,7 @@ export const mainMenuSlice = createSlice({
     },
 
 })
-export const {togglePanel, addMenuItem, updateMenuItem, deleteMenuItem, addTab, removeTab, setChildItem, setActiveTab} = mainMenuSlice.actions;
+export const {togglePanel, addMenuItem, updateMenuItem, setDefaultTabs, deleteMenuItem, addTab, removeTab, setChildItem, setActiveTab} = mainMenuSlice.actions;
 //selectors
 export const selectMainMenu = (state:RootState) => state.mainMenu 
 export const selectMainMenuItems = (state:RootState) => state.mainMenu.menuItems

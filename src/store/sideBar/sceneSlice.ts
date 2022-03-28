@@ -330,16 +330,43 @@ export const sceneSlice = createSlice({
     initialState : initialState,
     reducers: {
         //camera
-        addCameraView : (state, action: PayloadAction<{undoable?:true}>) => {
+        addCameraView : (state, action: PayloadAction<{activeViewerId:string,undoable?:true}>) => {
             if(state.cameraViews.filter(item => item.userDefined === true).length < state.settings.userDefineLimit){
                 const userDefinedLength = state.cameraViews.filter(item => item.userDefined === true).length;
                 const id : number = ++state.settings.idGeneratorUserDefined;
                 const name : string = `Camera View ${userDefinedLength + 1}`;
+                const res = getCameraInfo(action.payload.activeViewerId, state.settings.projection);
+                const frustum = res.frustum;
                 const newCameraView : CameraView = {
-                    ...state.settings.defaultCameraParameter,id, name, userDefined:true
+                    id,
+                    name, 
+                    userDefined:true,
+                    cameraDirection: [
+                        {name:"X", value:res.dir[0]},
+                        {name:"Y", value:res.dir[1]},
+                        {name:"Z", value:res.dir[2]},
+                    ],
+                    cameraPosition: [
+                        {name:"X" , value:res.pos[0]},
+                        {name:"Y", value:res.pos[1]},
+                        {name:"Z", value:res.pos[2]},
+                    ],
+                    cameraUp: [
+                        {name:"X", value:res.up[0]},
+                        {name:"Y", value:res.up[1]},
+                        {name:"Z", value:res.up[2]},
+                    ],
+                    valuePerspective:  [{name:"Y-Field of View", value:frustum.fov},
+                    {name:"Aspect Ratio", value:frustum.aspect},
+                    {name:"Far Plane", value:frustum.far},
+                    {name:"Near Plane", value:frustum.near}],
+                    valueOrthographic: [...state.settings.defaultCameraParameter.valueOrthographic]
                 }
                 state.cameraViews = [...state.cameraViews, newCameraView];
-
+                sceneSlice.caseReducers.setActiveId(state,{
+                    payload: id,
+                    type: "sceneSlice/setActiveId"
+                })
                 if(action.payload.undoable){
                     undoStack.add(
                         {
@@ -348,6 +375,7 @@ export const sceneSlice = createSlice({
                         }
                     )
                 }
+
             }
         },
 

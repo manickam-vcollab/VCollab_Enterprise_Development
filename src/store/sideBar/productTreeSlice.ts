@@ -18,10 +18,17 @@ export enum ProductTreeStates {
   DisplayModes
 }
 
+export enum Selection {
+  ALL_PARTS,
+  SELECTED_PARTS,
+  UNSELECTED_PARTS
+}
+
 interface ProductTreeState extends ITreeState {
     data: {[id:string]:TreeNode},
     rootIds: string[],
     currentState: ProductTreeStates,
+    applyTo: Selection,
     searchHints: {[id:string]:any},
     prevSearches: {[id:string]:any},
     searchQuery: string,
@@ -33,6 +40,7 @@ const initialState: ProductTreeState = {
     data: {},
     rootIds: [],
     currentState: ProductTreeStates.Tree,
+    applyTo: Selection.ALL_PARTS,
     searchHints: {},
     prevSearches: {},
     searchQuery: '',
@@ -313,6 +321,9 @@ export const productTreeSlice = createSlice({
     },
     setSearchResults: (state, action:PayloadAction<any[]>) => {
       state.searchResults = action.payload;
+    },
+    setApplyTo: (state, action:PayloadAction<Selection>) => {
+      state.applyTo = action.payload;
     }
   },
   extraReducers: builder => {
@@ -353,9 +364,11 @@ export const {
   setProductTreeState,
   setSearchString,
   setSearchResults,
+  setApplyTo,
   updatePrevSearches } = productTreeSlice.actions;
 
 //Define the selectors
+export const selectApplyTo = (state:RootState) => state.productTree.applyTo;
 export const selectProductTreeData = (state:RootState) => state.productTree.data
 export const selectModels = (state:RootState) => state.productTree.rootIds.map((id) => state.productTree.data[id]);
 export const selectCurrentState = (state:RootState) => state.productTree.currentState

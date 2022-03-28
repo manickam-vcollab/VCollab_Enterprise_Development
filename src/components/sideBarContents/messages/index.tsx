@@ -59,16 +59,6 @@ export default function Annotations(){
         
       },[notificationList]);
 
-    useEffect(() => {
-        const length = notificationList.length;
-     dispatch(addMessage( 
-        {id:`${length}`, 
-            type:NotificationType.SIMPLE_MESSAGE, 
-            title:  `Applied Color map ${length + 1}`, 
-            data:  ["Hello"],
-            tags: ["Colormap"] })) 
-    },[])
-
     const onClickBackIcon = () =>{
         dispatch(goBack());
     }

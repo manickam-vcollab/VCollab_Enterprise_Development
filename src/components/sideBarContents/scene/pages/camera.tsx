@@ -31,6 +31,7 @@ import { Routes } from '../../../../routes/index'
 import styles from '../style';
 
 import { CameraView ,addCameraView , setActiveId, ViewMode , setProjectionAsync , pasteCameraView , deleteCameraView, setCameraInfoAsync} from '../../../../store/sideBar/sceneSlice';
+import { selectActiveViewerID } from 'store/appSlice';
 
 export default function Camera (){
 
@@ -44,6 +45,7 @@ export default function Camera (){
     const cameraList : CameraView[] = useAppSelector((state) => state.scene.cameraViews)
     const active = useAppSelector(state => state.scene.settings.activeId);
     const projection = useAppSelector(state => state.scene.settings.projection)
+    const activeViewerId = useAppSelector(selectActiveViewerID);
     
     const userDefinedLength : number = cameraList.filter(item => item.userDefined === true).length;
     
@@ -67,7 +69,7 @@ export default function Camera (){
     }
 
     const onHandleAdd = () => {
-        dispatch(addCameraView({undoable: true}));
+        dispatch(addCameraView({activeViewerId,undoable: true}));
     }
 
     const onHandleCopy = () => {

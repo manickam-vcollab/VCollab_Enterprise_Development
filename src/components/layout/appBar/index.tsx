@@ -14,11 +14,10 @@ import Fitview from '../../icons/fitview';
 import Fullscreen from '../../icons/fullscreen';
 import MeasureP2PIcon from '@material-ui/icons/Straighten';
 import MeasureArcIcon from '@material-ui/icons/Looks';
-import PickAndMoveIcon from '@material-ui/icons/ThreeDRotation';
+
 import ProbeLabelIcon from "@material-ui/icons/Room";
 import ProbeIcon from '@material-ui/icons/Colorize'
 import NoteIcon from '@material-ui/icons/NoteAdd';
-import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import UndoIcon from '@material-ui/icons/Undo';
 import RedoIcon from '@material-ui/icons/Redo';
 import FullscreenClose from '../../icons/fullscreen_exit';
@@ -71,7 +70,6 @@ function AppBar() {
     ]
    
     const isContinousProbeEnabled = interactionMode === InteractionMode.CONTINUOUS_PROBE;
-    const isPickAndMoveEnabled = interactionMode === InteractionMode.PICK_AND_MOVE;
     const activeViewerID = useAppSelector(selectActiveViewerID);
     const modelName = useAppSelector(selectModelName);
     const dispatch = useAppDispatch();  
@@ -126,17 +124,6 @@ function AppBar() {
       dispatch(setLabelInsertionState(!labelInsertionState));
     }
 
-    const onClickPickAndMove = () => {
-        viewerAPIProxy.enablePickAndMove(activeViewerID,!isPickAndMoveEnabled);
-        viewerAPIProxy.setInteractionMode( activeViewerID,!isPickAndMoveEnabled ? InteractionMode.PICK_AND_MOVE : InteractionMode.DEFAULT);
-        
-    }
-
-    const resetPickAndMove = () => {
-        viewerAPIProxy.resetPickAndMove(activeViewerID);
-    }
-
-    
     const onClickProbe = () => {
       viewerAPIProxy.setInteractionMode( activeViewerID, !isContinousProbeEnabled ? InteractionMode.CONTINUOUS_PROBE : InteractionMode.DEFAULT);
     }
@@ -194,7 +181,6 @@ function AppBar() {
           position='fixed'
         >
         <MuiToolbar className={classes.toolBar}>
-
           <div className={classes.toolBarLeftContent}>            
             <div className={clsx( classes.leftTitle, { [classes.leftTitleHidden]: isSidebarVisible })}>
               <MuiTooltip title={ modelName } aria-label="ModelName">
@@ -220,14 +206,6 @@ function AppBar() {
               onChange={handleLabelInsertModeChange}
               onClick={handleLabelInsertModeClick}
             />
-            </div>
-            
-            <div className={classes.divIcon} onClick={ onClickPickAndMove } >
-                  <MuiToggleButton value='pick & move' selected={ isPickAndMoveEnabled } ><PickAndMoveIcon /></MuiToggleButton> 
-            </div>
-            
-            <div className={classes.divIcon} onClick={ resetPickAndMove } >
-                  <MuiIconButton><RotateLeftIcon /></MuiIconButton> 
             </div>
 
             <div className={classes.divIcon} onClick={ onClickProbe } >

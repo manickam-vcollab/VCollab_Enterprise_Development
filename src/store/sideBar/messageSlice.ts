@@ -77,7 +77,7 @@ export const messageSlice = createSlice({
 
             const date = () => {
                 const time = new Date();
-                return(time.toLocaleString())
+                return(JSON.stringify(time));
             };
             
                 state.notificationLists.push(

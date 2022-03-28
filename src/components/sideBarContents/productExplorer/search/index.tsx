@@ -47,9 +47,11 @@ function Search(props:{isSearchMode:boolean}) {
     }
 
     const handleSelectAll = (state:boolean) => {
-        result.forEach((data:any) => {
+        let nodes = result.length > 0 ? result : allParts;
+        nodes.forEach((data:any) => {
             dispatch(setCheckedNodesAsync({toCheck: state, nodeId: data.item.id}));
         })
+       
         setSelectAll(state);
     }
      const handleHintsClick = (s:string) => {
@@ -66,17 +68,15 @@ function Search(props:{isSearchMode:boolean}) {
                 <div ref = {headerRef} >
 
                 <SearchHints data = {generateOptions()} onClick={handleHintsClick} onDelete={handleHintsDelete}></SearchHints>
-                {
-                result.length !== 0 ?
+                </div>
+                :null
+          }
+                  {
                 <div>
                 <Checkbox color="primary" size='small' onChange = {(e:any) => {handleSelectAll(e.target.checked)}} checked = {selectAll} ></Checkbox>
                     Select All
                 </div>
-                : null
-                }
-                </div>
-                :null
-          }  
+                }  
 
             {/*
  // @ts-ignore */}

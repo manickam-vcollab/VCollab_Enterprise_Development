@@ -1,18 +1,26 @@
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 export default function DisplayTime(props:any){
     
     const [time,setTime] = useState<number>(0);
 
-    const changeTimeFinder = (date : Date) => {
-        const now = moment(Date());
-        const then = moment(date)
-        const changeTime = now.diff(then,"seconds")
-        setTime(changeTime)
+    const changeTimeFinder = (date : string) => {
+        const now = new Date();
+        const then = new Date(JSON.parse(date));
+        const changeTime:any = Math.abs(now - then);
+        setTime(Math.ceil(changeTime/1000))
     }
 
+    useEffect(() => {
+        const handle = setInterval( () => {
+            changeTimeFinder(props.time)
+        }, 5000);
+        return () => {
+            clearInterval(handle)
+        }
+    },[])
     const timeString = (time : number) => {
         if(time < 60)
         return("Just Now")
@@ -31,12 +39,6 @@ export default function DisplayTime(props:any){
         }
     } 
     }
-
-
-    setTimeout( () => {
-        changeTimeFinder(props.time)
-    }, 1000);
-
        
     return (
         <Typography variant="h3" align="left">

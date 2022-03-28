@@ -24,7 +24,7 @@ type ListItem = {
 
 export default function AxisTriadPosition(props:IAxisTriadPositionProps) {
 
-const classes = useStyles();   
+ const classes = useStyles();   
 
       
 return (

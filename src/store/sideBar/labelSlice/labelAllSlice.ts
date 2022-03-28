@@ -80,7 +80,7 @@ const initialState : InitialState = {
         faceLeafCount :0,
         distanceLeafCount : 0,
         arcLeafCount : 0 ,
-    }
+    },
 }
 
 export const init = createAsyncThunk(
@@ -662,7 +662,7 @@ export const LabelAllSlice = createSlice({
 
         deleteLabel: (state, action: PayloadAction<{keys:string[]}>) => {
             let keys = action.payload.keys;
-            alert("deleteKeys"+ keys)
+            console.log("deleteKeys", keys)
             keys.forEach(k => {
                 deleteNodeReducer(state, {payload:{nodeId:k},type:'string'})
             })

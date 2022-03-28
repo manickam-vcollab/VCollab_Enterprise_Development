@@ -10,6 +10,7 @@ import DisplayModeBody from '../DisplayModes/DisplayModesBody'
 import SelectAction from '../../../layout/sideBar/sideBarContainer/sideBarHeader/utilComponents/SelectAction';
 import Footer from '../DisplayModes/Footer';
 import { fetchDisplayModes, selectApplyTo,Selection,setApplyTo } from '../../../../store/sideBar/displayModesSlice';
+import { useEffect } from 'react';
 
 
 
@@ -19,6 +20,11 @@ export default function DisplayModes(props:any){
     const unCheckedLeafNodes = useAppSelector(selectUnCheckedLeafNodes);
     const applyTo = useAppSelector(selectApplyTo);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+      if(checkedLeafNodes.length > 0)
+      dispatch(setApplyTo(Selection.SELECTED_PARTS));
+  },[])
 
     const IsListDisabled = ():boolean => {
       if((applyTo === Selection.SELECTED_PARTS && checkedLeafNodes.length === 0) ||

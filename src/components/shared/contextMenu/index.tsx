@@ -25,17 +25,11 @@ type contextMenu = {
 const useContextMenu = (handleOutSideClick: any) => {
 
 
-    const handleClick = () => {
-
-        handleOutSideClick();
-
-    };
-
     useEffect(() => {
-        document.addEventListener("click", handleClick);
+            document.addEventListener("click", handleOutSideClick);
 
         return () => {
-            document.removeEventListener("click", handleClick);
+            document.removeEventListener("click", handleOutSideClick);
         };
     });
 
@@ -45,7 +39,16 @@ export default function ContextMenu(props: IContextMenu) {
 
     const { mousePointer, items, onHandleContextMenuClick, handleOutSideClick } = props;
 
-    useContextMenu(handleOutSideClick);
+
+    useEffect(() => {
+        document.addEventListener("click", handleOutSideClick);
+
+    return () => {
+        document.removeEventListener("click", handleOutSideClick);
+    };
+});
+
+   // useContextMenu(handleOutSideClick);
 
     return (
 

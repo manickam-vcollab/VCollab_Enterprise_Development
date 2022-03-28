@@ -57,7 +57,7 @@ function Body(props: BodyProps) {
     className={listClasses.Scrollbar}
     >
        { (props.searchResults.length === 0 ? props.searchItems : props.searchResults).map(e => {
-                return <ListItem button onClick={() => handleResultsClick(e)}>
+                return <ListItem disabled={e.disabled} button onClick={() => handleResultsClick(e)}>
                 <ListItemIcon >
                   { React.createElement(getIcon(e.type))}
                 </ListItemIcon>

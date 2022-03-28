@@ -8,6 +8,12 @@ export const appTheme = {
         }
       }
     },
+
+    // MuiTabs: {
+    //   indicator: {
+    //     backgroundColor: 'green'
+    //   }
+    // },
   },
 
   palette: {
@@ -51,8 +57,3 @@ export const appTheme = {
 export default appTheme;
 
 
-   // MuiTabs: {
-    //   indicator: {
-    //     backgroundColor: 'green'
-    //   }
-    // },

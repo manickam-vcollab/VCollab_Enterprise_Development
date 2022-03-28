@@ -10,6 +10,13 @@ const useStyles = makeStyles((theme) => (
         backgroundImage: 'linear-gradient(to bottom,' + props.colorString+')', 
         width:'100%',
         height:'100%'
+    }),
+
+    rootOne: (props:any) => ({
+        position:'absolute', 
+        backgroundColor: props.colorString,
+        width:'100%',
+        height:'100%'
     })
 }))
 
@@ -22,12 +29,14 @@ function Background(props:any) {
     useEffect(() => {
         let s = '';
         colors.forEach((e,i) => {
-            if(i === colors.length-1) {
+            if(i === colors.length -1) {
                 let c = e.color;
                 s += `rgba(${c.r},${c.g},${c.b},${c.a})`
+                
             }
             else
-            s += `rgba(${e.color.r},${e.color.g},${e.color.b},${e.color.a}), ` 
+            s += `rgba(${e.color.r},${e.color.g},${e.color.b},${e.color.a}), `
+            
         });
         setColorString(s);
     },[colors])
@@ -37,8 +46,14 @@ function Background(props:any) {
         <img src={file} style={{position:'absolute', width:'100%', height:'100%'}}>
         </img>
         :
-        <div className={classes.root}>
-            
+        // <div className={classes.rootOne}>
+        <div >{
+            colors.length > 1?
+            <div className={classes.root}>
+                </div>
+        :<div className={classes.rootOne}>
+        </div>
+        }
         </div>
     )
 }

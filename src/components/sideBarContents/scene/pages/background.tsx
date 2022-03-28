@@ -118,8 +118,15 @@ export default function Background (){
 
             const removedColor = JSON.parse(JSON.stringify(colourList.find((item) => item.id === colourList.length)));
             const newArray = colourList.filter((item) => item.id !== colourList.length)
-            dispatch(setBackgroundColorAsync(newArray));
-            setSelectedColor(-1)
+            // console.log(newArray);
+            const ApiColor = [...newArray]  
+            // if(ApiColor.length >= 1)
+            // {
+            //     let firstcolor = ApiColor[0]
+            //     ApiColor.push(firstcolor); 
+            // }
+            dispatch(setBackgroundColorAsync(ApiColor));
+            setSelectedColor(ApiColor[ApiColor.length - 1])
 
             if(undoable && colourList.length > 1){
                 undoStack.add(

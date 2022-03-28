@@ -20,8 +20,9 @@ export type SearchState = {
 
 export const getSearchItems = (mainMenuItems:MainMenuItem[], withGroup?:boolean): SearchItem[] => {
     let items:SearchItem[] = [];
+    let excludeTypes = [MainMenuItems.MORE,MainMenuItems.ADD_GROUP];
     mainMenuItems.forEach(e => {
-        if(e.type !== MainMenuItems.MORE){
+        if(!excludeTypes.includes(e.type)){
             let item = {
                 id: e.id,
                 type: e.type,
