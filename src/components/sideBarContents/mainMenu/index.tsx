@@ -76,8 +76,6 @@ export default function MainMenu(){
 
     const getBody = () => {
 
-      console.log(mainMenuData)
-
       return (  
        <> 
       <Divider className={classes.divider} />
@@ -114,8 +112,8 @@ export default function MainMenu(){
                         { item?.list.map((element : any) =>
                             <ListItem disabled={element.disabled === false ? false : true} alignItems='flex-start' className={classes.listItem} button key={ 'divParent_' + element.id }
                             onClick={() => handleOnClick(element.path)}>
-                                <ListItemText primary={element.title} >
-                                </ListItemText>
+                                 <ListItemText primary={element.title} >
+                                 </ListItemText>
                             </ListItem>
                 	    )}
                     </List>

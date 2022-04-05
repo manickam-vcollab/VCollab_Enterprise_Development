@@ -5,6 +5,6 @@ export default makeStyles((theme) => ({
     root: {
         width: leftbarWidth,
         backgroundColor: theme.palette.background.default,
-        color: theme.palette.text.primary
+        color: theme.palette.text.primary,
     }
 }));

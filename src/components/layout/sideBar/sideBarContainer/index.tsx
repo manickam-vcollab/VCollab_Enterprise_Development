@@ -37,6 +37,7 @@ export default function SideBarContainer(props : any) {
         <SideBarBody height = { bodyHeight } >  {props.body} </SideBarBody>
         <SideBarFooter targetRef = { FooterTargetRef } >{props.footer}</SideBarFooter>
       </div>
+      
     </div>
   );
 }

@@ -44,7 +44,7 @@ function a11yProps(index: any) {
 const useTabStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.default,
     display: 'flex',
   },
   tabs: {
@@ -146,13 +146,13 @@ function LeftBar(props: LeftBarProps) {
 
   const contextMenuItemsArray = [
     {
-      id: 'itempin', text: 'pin', icon: <PinIcon fontSize='small'/>
+      id: 'itempin', text: 'Pin', icon: <PinIcon fontSize='small'/>
     },
     {
-      id: 'itemunpin', text: 'unpin', icon: <UnPinIcon  fontSize='small'/>
+      id: 'itemunpin', text: 'Unpin', icon: <UnPinIcon  fontSize='small'/>
     },
     {
-      id: 'addgroup', text: 'addgroup', icon: <AddGroupIcon  fontSize='small'/>
+      id: 'addgroup', text: 'Addgroup', icon: <AddGroupIcon  fontSize='small'/>
     }
   ]
 
@@ -238,6 +238,8 @@ function LeftBar(props: LeftBarProps) {
     }
     
   };
+
+
   //manickam --
   const setContextMenu = (event: any, id: string) => {
 
@@ -338,6 +340,7 @@ function LeftBar(props: LeftBarProps) {
 
 
   }
+
   const unpinItems = () => {
     const menuItemId = contextMenuID;
     dispatch(removeTab({ menuItemId }))
@@ -348,7 +351,6 @@ function LeftBar(props: LeftBarProps) {
   
 
   const onHandleContextMenuClick = (id: string) => {
-
 
     if (id === "itempin") {
 

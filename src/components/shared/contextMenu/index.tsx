@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback ,useRef} from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+
 
 
 interface IContextMenu {
@@ -22,37 +23,36 @@ type contextMenu = {
 
 }
 
-const useContextMenu = (handleOutSideClick: any) => {
 
-
+function useOutSideListener(ref:any , handleOutSideClick:any) {
     useEffect(() => {
-            document.addEventListener("click", handleOutSideClick);
 
+        function handleClickOutside(event:any) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                handleOutSideClick();
+            }
+        }
+
+        // Bind the event listener
+        document.addEventListener("click", handleClickOutside);
         return () => {
-            document.removeEventListener("click", handleOutSideClick);
+            // Unbind the event listener on clean up
+            document.removeEventListener("click", handleClickOutside);
         };
-    });
-
-};
+    }, [ref]);
+}
 
 export default function ContextMenu(props: IContextMenu) {
 
     const { mousePointer, items, onHandleContextMenuClick, handleOutSideClick } = props;
 
+    const wrapperRef = useRef(null);
 
-    useEffect(() => {
-        document.addEventListener("click", handleOutSideClick);
-
-    return () => {
-        document.removeEventListener("click", handleOutSideClick);
-    };
-});
-
-   // useContextMenu(handleOutSideClick);
+    useOutSideListener(wrapperRef , handleOutSideClick);
 
     return (
 
-        <div >
+        <div ref={wrapperRef}>
             <Menu
                 keepMounted
                 open={true}

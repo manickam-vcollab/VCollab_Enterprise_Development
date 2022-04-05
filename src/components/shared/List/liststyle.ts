@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
       height:'100%',
       overflowY:'auto',
       overlowX: 'hidden',
-      scrollbarColor: 'gray',
+      scrollbarColor: theme.palette.scrollbar.main,
       scrollbarWidth: 'thin',
       '&::-webkit-scrollbar': {
         width: '0.4em'
@@ -22,7 +22,7 @@ export default makeStyles((theme) => ({
       },
       '&::-webkit-scrollbar-thumb': {
         borderRadius:'20px',
-        backgroundColor: 'gray',
+        backgroundColor: theme.palette.scrollbar.main,
 
       },
   },
