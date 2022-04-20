@@ -78,34 +78,34 @@ export default function EditLabels2D(){
   }
 
 
-  const getFooter = () => {
+  // const getFooter = () => {
 
-    let change = false;
-    // if(label2D?.label !== labelText)
-    //   change = true;
+  //   let change = false;
+  //   // if(label2D?.label !== labelText)
+  //   //   change = true;
 
-    return(
-      <div className={classes.editPageFooter}>
-        <MuiButton className={classes.saveButton}
-          disabled={!change}
-          autoFocus 
-          onClick={onHandleSave}
-          // color="primary"
-        >
-          Save
-        </MuiButton>
+  //   return(
+  //     <div className={classes.editPageFooter}>
+  //       <MuiButton className={classes.saveButton}
+  //         disabled={!change}
+  //         autoFocus 
+  //         onClick={onHandleSave}
+  //         // color="primary"
+  //       >
+  //         Save
+  //       </MuiButton>
      
-        <MuiButton className={classes.resetButton}
-            autoFocus 
-            onClick={onHandleReset} 
-            disabled={!change}
-            // color="primary"
-        >
-          Reset
-        </MuiButton>
-      </div>
-    ) 
-  }
+  //       <MuiButton className={classes.resetButton}
+  //           autoFocus 
+  //           onClick={onHandleReset} 
+  //           disabled={!change}
+  //           // color="primary"
+  //       >
+  //         Reset
+  //       </MuiButton>
+  //     </div>
+  //   ) 
+  // }
 
   const getHeaderContent = () => {
       const type = (selectedLabels[0] as ILabel).labelType;
@@ -117,7 +117,7 @@ export default function EditLabels2D(){
             headerContent={ getHeaderContent() }
             headerRightIcon = { getHeaderRightIcon() }
             body ={ getBody() }
-            footer = { getFooter() }
+           // footer = { getFooter() }
           />
 
   )

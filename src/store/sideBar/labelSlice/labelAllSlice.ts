@@ -655,6 +655,25 @@ export const LabelAllSlice = createSlice({
             }
         },
 
+        editUndoLabel: (state, action: PayloadAction<{id:string, value:string}>) => {
+            const {id,value} = action.payload;
+
+            console.log('editundo',value);
+            if(id !== "-1"){
+                state.data[id].label = value;
+            }
+        },
+
+        editRedoLabel: (state, action: PayloadAction<{id:string, value:string}>) => {
+
+            const {id,value} = action.payload;
+
+            console.log('editredo',value);
+            if(id !== "-1"){
+                state.data[id].label = value;
+            }
+        },
+
         editLabelBackground: (state, action: PayloadAction<{id:string, color:string}>) => {
             const {id,color} = action.payload;
             state.data[id].bgColor = color;
@@ -753,6 +772,8 @@ export const {
     handleProbeLabelCreationUndoRedo,
     createInterLabel,
     editLabel,
+    editUndoLabel,
+    editRedoLabel,
     editLabelBackground,
     setlabelMode,
     setLabelPos, 

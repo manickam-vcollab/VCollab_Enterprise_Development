@@ -1,5 +1,5 @@
 import { useMemo, useState ,useEffect ,useCallback ,useRef } from 'react';
-import { Editable, withReact, Slate ,ReactEditor ,  useSlate } from 'slate-react';
+import { Editable, withReact, Slate ,ReactEditor } from 'slate-react';
 import {
   Editor,
   BaseEditor ,
@@ -13,7 +13,7 @@ import { HistoryEditor ,withHistory } from 'slate-history';
 import MuiButton from '@material-ui/core/Button';
 
 import { useAppSelector, useAppDispatch} from '../../../../../../store/storeHooks';
-import {selectLabelData,editLabel,selectCheckedLeafNodes} from '../../../../../../store/sideBar/labelSlice/labelAllSlice';
+import {selectLabelData,editLabel,selectCheckedLeafNodes,editUndoLabel,editRedoLabel} from '../../../../../../store/sideBar/labelSlice/labelAllSlice';
 import {ILabel,LabelType} from '../../../../../../store/sideBar/labelSlice/shared/types';
 import {getInitialContent} from './common';
 import {undoStack} from '../../../../../utils/undoStack';
@@ -96,15 +96,17 @@ let {attributes, children ,leaf} = props;
   return <span {...attributes}>{children}</span>
 }
 
-//var setUndoable:boolean = true ;
-
-
 export default function SidebarEditor(props:{selectedLabels:ILabel[]}) {
 
   const countRef = useRef(0);
   const selectedLabels = useAppSelector(selectCheckedLeafNodes);
   const dispatch = useAppDispatch();
   const [value, setValue] = useState<Descendant[]>(getInitialContent(props.selectedLabels));
+
+  const [editorValue , updateEditorValue] = useState(props.selectedLabels);
+
+  const [editorUpdate ,setEditorUpdate] = useState(true);
+
   
   //const editor = useMemo(() => withReact(withHistory(createEditor())), [])
 
@@ -116,46 +118,73 @@ export default function SidebarEditor(props:{selectedLabels:ILabel[]}) {
         return <Leaf {...props} />
   }, [])  
 
-  const onHandleSave = (undoable:boolean) => {
+
+  const onHandleChange = (newValue:any) => {
+
+    updateEditorValue(newValue);
+
+    if(editorUpdate === false) {
+
+      setEditorUpdate(true);
+    }
+    else {
+
+      setValue(newValue);
+
+    }
 
     selectedLabels.forEach(e => {
 
-        dispatch(editLabel({id: e.id, value: JSON.stringify(value)}))
-  })
-
-
+      dispatch(editUndoLabel({id: e.id, value: JSON.stringify(newValue)}))
+   })
   }
 
-  const onHandleChange = ( newValue:any,undoable:boolean) => {
+  const UndoClick = (setUndoable:boolean)=> {
 
-    setValue(newValue);
-     
-  }
+    if(setUndoable === false) {
 
-  const UndoClick = ()=> {
+      setEditorUpdate(false);
+
+    }
 
     editor.undo();
 
+    selectedLabels.forEach(e => {
+
+      dispatch(editUndoLabel({id: e.id, value: JSON.stringify(value)}))
+   })
+
   }
 
-  const RedoClick = ()=> {
+  const RedoClick = (setUndoable:boolean)=> {
+
+    if(setUndoable === false) {
+
+      setEditorUpdate(false);
+
+    }
+
+   editor.redo();
+
+   selectedLabels.forEach(e => {
+
+    dispatch(editRedoLabel({id: e.id, value: JSON.stringify(editorValue)}))
+ })
 
 
-    editor.redo();
   }
 
-  const addUndoRedo = (undoable:boolean)=> {
+  const addUndoRedo = (undoable:boolean)=>  {
 
     if(undoable) {
 
       undoStack.add(
         {
-          undo: () => UndoClick(),
-          redo: () => RedoClick(),
+          undo: () => UndoClick(false),
+          redo: () => RedoClick(false),
         }
       )
     }
-
 
   }
 
@@ -163,17 +192,17 @@ export default function SidebarEditor(props:{selectedLabels:ILabel[]}) {
 
     countRef.current +=1;
         if(countRef.current> 1) {
-          addUndoRedo(true)
+          addUndoRedo(editorUpdate)
         }
 
   },[value])
 
     return (
       <>
-        <Slate editor={editor} value={value} onChange={(newValue:any)=> onHandleChange(newValue ,true)}>
+        <Slate editor={editor} value={value} onChange={(newValue:any)=> onHandleChange(newValue)}>
               <Toolbar/>
-              <UndoIcon fontSize="small" onClick={UndoClick}/>
-              <RedoIcon fontSize="small" onClick={RedoClick}/>
+              <UndoIcon fontSize="small" onClick={()=>UndoClick(true)}/>
+              <RedoIcon fontSize="small" onClick={()=>RedoClick(true)}/>
               <div style={{border:"1px solid black",marginTop:'20px'}}>
                 <Editable 
                 renderElement={renderElement}
@@ -182,11 +211,6 @@ export default function SidebarEditor(props:{selectedLabels:ILabel[]}) {
               </div>
 
               <br></br>
-
-              <MuiButton variant="contained" color="primary" 
-              onClick={()=>onHandleSave(true)}>
-                Save  
-              </MuiButton>
         </Slate>
       </>
     )

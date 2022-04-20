@@ -36,7 +36,6 @@ const getLeftIcon =()=>{
 
   return (
      <BackIcon onClick={onClickBackIcon}/>
-
   )
 }
 
@@ -49,7 +48,7 @@ const getHeaderContent=()=>{
 
 }
 
-const getBody=()=>{
+const getBody=()=> {
 
 const handleThemeItemClick = (
   undoable:boolean,
@@ -76,7 +75,7 @@ const handleThemeItemClick = (
 
     undoStack.add({
       undo:()=>{handleThemeItemClick(false , lastSelectedID ,isSelected)},
-      redo:()=>{handleThemeItemClick(false , newSelectedID , isSelected )}
+      redo:()=>{handleThemeItemClick(false , newSelectedID , isSelected)}
     })
    }
 
@@ -115,7 +114,6 @@ const handleThemeItemClick = (
   return (
 
     <SideBarContainer
-    headerLeftIcon = {getLeftIcon() }
     headerContent={  getHeaderContent()}
     body ={ getBody() }
   />

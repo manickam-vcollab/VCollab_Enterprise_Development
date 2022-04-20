@@ -326,7 +326,4 @@ return (
             footer = { getFooter() }
           />
           </>
-
-)
-
-}
+)}

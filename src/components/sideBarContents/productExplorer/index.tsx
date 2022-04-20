@@ -8,10 +8,12 @@ import { useEffect } from 'react'
 import MaterialColor from './pages/materialColor'
 import PartList from './pages/PartList'
 import GeometryTransform from './pages/GeometryTransform'
+
 function ProductExplorer() {
     
     return (
         <Switch>
+
             <Route path={Routes.GEOMETRY_ASSEMBLY_TREE}>
                 <AssemblyTree/>
             </Route>
@@ -29,6 +31,10 @@ function ProductExplorer() {
             </Route>
             <Route path={Routes.GEOMETRY_TRANSFORM}>
                 <GeometryTransform/>
+            </Route>
+
+            <Route path={Routes.GEOMETRY}>
+                <div>maniks</div>
             </Route>
         </Switch>
         

@@ -44,14 +44,14 @@ export default function Sidebar(props: SideBarProps){
 
     const handleClickAway = (event : any) => {
       if (isSidebarVisible && smMatches ) {
-        console.log(event);
         dispatch(setSidebarVisibility(false));
       }
     };
 
     const renderContent = () => {
+
       return  (
-      location.pathname.endsWith('/') && props.selectedItem ?
+      location.pathname.endsWith('/') && props.selectedItem?
       <Group selectedItem={props.selectedItem}></Group>
       : <Switch> 
         <Route exact path={Routes.HOME}>
